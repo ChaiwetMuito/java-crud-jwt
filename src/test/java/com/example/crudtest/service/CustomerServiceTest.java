@@ -45,6 +45,7 @@ public class CustomerServiceTest {
 
         List<Customer> result = customerService.getAllCustomers();
         assertEquals(1, result.size());
+        assertEquals(customer, result.get(0));
         verify(customerRepository, times(1)).findAll();
     }
 
@@ -55,6 +56,8 @@ public class CustomerServiceTest {
         Optional<Customer> result = customerService.getCustomerById(1L);
         assertTrue(result.isPresent());
         assertEquals("Chaiwet", result.get().getFirstName());
+        assertEquals("Muito", result.get().getLastName());
+        assertEquals("chaiwet.muito@gmail.com", result.get().getEmail());
         verify(customerRepository, times(1)).findById(1L);
     }
 
@@ -64,6 +67,8 @@ public class CustomerServiceTest {
 
         Customer result = customerService.createCustomer(customer);
         assertEquals("Chaiwet", result.getFirstName());
+        assertEquals("Muito", result.getLastName());
+        assertEquals("chaiwet.muito@gmail.com", result.getEmail());
         verify(customerRepository, times(1)).save(customer);
     }
 
@@ -76,6 +81,8 @@ public class CustomerServiceTest {
         Optional<Customer> result = customerService.updateCustomer(1L, customer);
         assertTrue(result.isPresent());
         assertEquals("Jane", result.get().getFirstName());
+        assertEquals("Muito", result.get().getLastName());
+        assertEquals("chaiwet.muito@gmail.com", result.get().getEmail());
         verify(customerRepository, times(1)).findById(1L);
         verify(customerRepository, times(1)).save(customer);
     }
